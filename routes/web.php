@@ -11,6 +11,6 @@ Route::get('/', function () {
 });
 
 Route::resource('/mahasiswa', MahasiswaController::class);
-Route::resource('/mahasiswa', DosenController::class);
-Route::resource('/mahasiswa', JurusanController::class);
-Route::resource('/mahasiswa', MatakuliahController::class);
+Route::resource('/dosen', DosenController::class);
+Route::resource('/jurusan', JurusanController::class);
+Route::resource('/matakuliah', MatakuliahController::class);

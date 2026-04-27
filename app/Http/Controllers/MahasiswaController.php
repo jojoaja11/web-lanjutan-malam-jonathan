@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller
+class MahasiswaController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //return Mahasiswa::all();\
         return view('mahasiswa.index', [
             'mahasiswa' => Mahasiswa::all()
         ]);
@@ -43,13 +42,13 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        Mahasiswa::find('data');
+        return Mahasiswa::find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit ($id)
+    public function edit($id)
     {
         return view('mahasiswa.edit', [
             'mahasiswa' => Mahasiswa::find($id)
@@ -73,7 +72,7 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        Mahasiswa::find($id)->delete();
+        Mahasiswa::find($id)->delete();//
 
         return redirect()->action([MahasiswaController::class, 'index']);
     }
