@@ -7,7 +7,7 @@ use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\MatakuliahController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::resource('/mahasiswa', MahasiswaController::class);

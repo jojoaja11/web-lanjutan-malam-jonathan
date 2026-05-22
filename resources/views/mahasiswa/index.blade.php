@@ -21,7 +21,7 @@
 
     
 
-    <table class="table table-dark table-hover" class="table table-hover" >
+    <table class="table table-blue table-hover" class="table table-hover" >
         <thead>
             <th>No</th>
             <th>Nama Lengkap</th>
