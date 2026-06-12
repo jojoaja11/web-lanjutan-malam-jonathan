@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KRSController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\JurusanController;
@@ -16,4 +17,5 @@ Route::resource('/dosen', DosenController::class);
 Route::resource('/jurusan', JurusanController::class);
 Route::resource('/mata_kuliah', MatakuliahController::class);
 Route::resource('kelas', KelasController::class)
+Route::resource('/krs', KRSController::class);
     ->except(['show', 'edit', 'update']);
