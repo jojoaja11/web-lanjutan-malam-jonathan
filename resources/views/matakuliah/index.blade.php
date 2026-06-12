@@ -34,7 +34,7 @@
         </thead>
 
         <tbody>
-            @foreach ($mahasiswa as $m)
+            @foreach ($mata_kuliah as $k)
             <tr>
             <td>{{$k->id}}</td>
             <td>{{$k->jurusan_id}}</td>

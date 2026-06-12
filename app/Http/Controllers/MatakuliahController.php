@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mahasiswa;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 
 class MatakuliahController
@@ -12,7 +12,7 @@ class MatakuliahController
      */
     public function index()
     {
-        return view('Matakuliah.index', [
+        return view('matakuliah.index', [
             'mata_kuliah' => matakuliah::all()
         ]);
     }
@@ -22,7 +22,7 @@ class MatakuliahController
      */
     public function create()
     {
-        return view('mata_kuliah.create');
+        return view('matakuliah.create');
     }
 
     /**

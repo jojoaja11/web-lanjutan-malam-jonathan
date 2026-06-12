@@ -152,7 +152,7 @@
         <div class="table-container">
 
             <!-- BUTTON CREATE -->
-            <a href="{{ action([App\Http\Controllers\DosenController::class, 'create']) }}">
+            <a href="{{ action([App\Http\Controllers\KelasController::class, 'create']) }}">
                 <input type="button"
                     class="btn btn-primary btn-lg"
                     value="Create">
@@ -183,9 +183,9 @@
             <tr>
                 <td>{{ $c->kode_kelas }}</td>
 
-                <td>{{ $c->kode_dosen }}</td>
+                <td>{{ $c->dosen->Fullname }}</td>
 
-                <td>{{ $c->kode_mata_kuliah }}</td>
+                <td>{{ $c->matakuliah->Nama_Mata_Kuliah }}</td>
 
                 <td>{{ $c->ruang_kelas }}</td>
 
