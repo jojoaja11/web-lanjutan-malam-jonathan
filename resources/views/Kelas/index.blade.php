@@ -165,6 +165,7 @@
 
                 <thead>
             <tr>
+                <th>id</th>
                 <th>Kode Kelas</th>
                 <th>Nama Dosen</th>
                 <th>Nama Mata Kuliah</th>
@@ -181,11 +182,13 @@
             @foreach($kelas as $c)
 
             <tr>
+                <td>{{ $c->id }}</td>
+
                 <td>{{ $c->kode_kelas }}</td>
 
                 <td>{{ $c->dosen->Fullname }}</td>
 
-                <td>{{ $c->matakuliah->Nama_Mata_Kuliah }}</td>
+                <td>{{ $c->mata_kuliah->Nama_Mata_Kuliah}}</td>
 
                 <td>{{ $c->ruang_kelas }}</td>
 
