@@ -1,31 +1,46 @@
 <html>
-        <form action="{{ action([App\Http\Controllers\MatakuliahController::class,'store']) }}" method="post">
+        <form action="{{ action([App\Http\Controllers\DosenController::class,'store']) }}" method="post">
             @csrf
         <table>
             <tr>
+                <td>Nama Lengkap</td>
+                <td>:</td>
+                <td><input type="text" name="fullname" size="30"></td>
+            </tr>
+             <tr>
+                <td>Nomor Induk Pengajar</td>
+                <td>:</td>
+                <td><input type="text" name="NIP" size="30"></td>
+            </tr>
+             <tr>
+                <td>Nomor Induk Dosen Nasional</td>
+                <td>:</td>
+                <td><input type="text" name="NIDN" size="30"></td>
+            </tr>
+            <tr>
+                <td>Pendidikan Terakhir</td>
+                <td>:</td>
+                <td><input type="text" name="pendidikan_terakhir" size="30"></td>
+            </tr>
+            <tr>
                 <td>Jurusan Id</td>
                 <td>:</td>
-                <td><input type="text" name="jurusan_id" size="30"></td>
+                <td><input type="text" name="NIDN" size="30"></td>
             </tr>
              <tr>
-                <td>Kode MK</td>
+                <td>Tempat Lahir</td>
                 <td>:</td>
-                <td><input type="text" name="kode_mk" size="30"></td>
+                <td><input type="text" name="tempat_lahir" size="30"></td>
             </tr>
              <tr>
-                <td>Nama MK</td>
+                <td>Tanggal Lahir</td>
                 <td>:</td>
-                <td><input type="text" name="nama_mk" size="30"></td>
+                <td><input type="date" name="tanggal_lahir" size="30"></td>
             </tr>
-            <tr>
-                <td>Sks</td>
+             <tr>
+                <td>Alamat</td>
                 <td>:</td>
-                <td><input type="text" name="sks" size="30"></td>
-            </tr>
-            <tr>
-                <td>Dosen Id</td>
-                <td>:</td>
-                <td><input type="text" name="dosen_id" size="30"></td>
+                <td><textarea name="alamat" rows="4" cols="30"></textarea></td>
             </tr>
         </table>
         <button type="submit">Add</button>

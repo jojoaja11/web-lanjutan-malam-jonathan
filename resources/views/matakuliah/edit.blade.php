@@ -1,32 +1,47 @@
 <html>
-        <form action="{{ action([App\Http\Controllers\MatakuliahController::class, 'update'], [$mata_kuliah->id]) }}" method="post">
+        <form action="{{ action([App\Http\Controllers\DosenController::class, 'update'], [$dosen->id]) }}" method="post">
         <input type="hidden" name="_method" value="PUT">
         <table>
             @csrf
             <tr>
+                <td>Nama Lengkap</td>
+                <td>:</td>
+                <td><input type="text" name="fullname" value="{{$dosen->fullname}}" size="30"></td>
+            </tr>
+             <tr>
+                <td>Nomor Induk Pengajar</td>
+                <td>:</td>
+                <td><input type="text" name="NIP" value="{{$dosen->NIP}}" size="30"></td>
+            </tr>
+             <tr>
+                <td>Nomor Induk Dosen Nasional</td>
+                <td>:</td>
+                <td><input type="text" name="NIDN" value="{{$dosen->NIDN}}" size="30"></td>
+            </tr>
+            <tr>
+                <td>Pendidikan Terakhir</td>
+                <td>:</td>
+                <td><input type="text" name="pendidikan_terakhir" value="{{$dosen->NIDN}}" size="30"></td>
+            </tr>
+            <tr>
                 <td>Jurusan Id</td>
                 <td>:</td>
-                <td><input type="text" name="jurusan_id" value="{{$mata_kuliah->jurusan_id}}" size="30"></td>
+                <td><input type="text" name="jurusan_id" value="{{$dosen->NIDN}}" size="30"></td>
             </tr>
              <tr>
-                <td>Kode MK</td>
+                <td>Tempat Lahir</td>
                 <td>:</td>
-                <td><input type="text" name="kode_mk" value="{{$mata_kuliah->kode_mk}}" size="30"></td>
+                <td><input type="text" name="tempat_lahir" value="{{$dosen->tempat_lahir}}" size="30"></td>
             </tr>
              <tr>
-                <td>Nama MK</td>
+                <td>Tanggal Lahir</td>
                 <td>:</td>
-                <td><input type="text" name="nama_mk value="{{$mata_kuliah->nama_mk}}" size="30"></td>
+                <td><input type="date" name="tanggal_lahir" value="{{$dosen->tanggal_lahir}}" size="30"></td>
             </tr>
-            <tr>
-                <td>Sks</td>
+             <tr>
+                <td>Alamat</td>
                 <td>:</td>
-                <td><input type="text" name="sks" value="{{$mata_kuliah->sks}}" size="30"></td>
-            </tr>
-            <tr>
-                <td>Dosen Id</td>
-                <td>:</td>
-                <td><input type="text" name="dosen_id" value="{{$mata_kuliah->dosen_id}}" size="30"></td>
+                <td><textarea name="Alamat" rows="4" cols="30">{{$dosen->alamat}}</textarea></td>
             </tr>
         </table>
         <button type="submit">Add</button>

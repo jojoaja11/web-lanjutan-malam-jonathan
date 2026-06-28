@@ -1,40 +1,46 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\KRSController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
-use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\KelasController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KRSController;
+use App\Http\Controllers\KRSDetailController;
 
 Route::get('/', function () {
-    return view('dashboard', [
-        'user' => Auth::user(),
-    ]);
+    return view('dashboard');
 })->name('dashboard');
 
-Route::middleware('auth')->group(function(){
-    Route::resource('/mahasiswa', MahasiswaController::class);
-    Route::resource('/dosen', DosenController::class);
-    Route::resource('/matakuliah', MatakuliahController::class);
-    Route::resource('/jurusan', JurusanController::class);
-    Route::resource('/kelas', KelasController::class);
-    Route::resource('/krs', KRSController::class);
-});
+Route::get('/login', [AuthController::class, 'loginView'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/register', [AuthController::class, 'registerView']);
+Route::get('/register', [AuthController::class, 'registerView'])->name('register.view');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/login', [AuthController::class, 'loginView']);
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route::get      => Get Data     => R => select
-// SELECT ALL   /   SELECT SPESIFIK
-// Route::post     => Save Data    => C => insert into  /   create
-// Route::put      => Update Data  => U => update  /   alter
-// Route::delete   => Delete Data  => D => delete  /   drop
+Route::middleware('auth')->group(function () {
 
-// Create, Read, Update, Delete
+    Route::resource('/mahasiswa', MahasiswaController::class);
+
+    Route::resource('/dosen', DosenController::class);
+
+    Route::resource('/jurusan', JurusanController::class);
+
+    Route::resource('/mata_kuliah', MatakuliahController::class);
+
+    Route::resource('/kelas', KelasController::class)
+        ->except(['show', 'edit', 'update']);
+
+    Route::resource('/krs', KRSController::class);
+
+    Route::resource('/krs-detail', KRSDetailController::class);
+
+    Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+});

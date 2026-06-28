@@ -1,173 +1,376 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Website Kampus</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Website Kampus ITBSS</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+
         body{
-            background-color: #f5f5f5;
+            background:#f5f5f5;
         }
 
         .kampus-img{
-            width: 100%;
-            height: 500px;
-            object-fit: contain;
-            border-radius: 10px;
+            width:100%;
+            max-height:500px;
+            object-fit:contain;
+            border-radius:10px;
+            display:block;
+            margin:auto;
         }
 
         footer{
-            background-color: #212529;
-            color: white;
-            margin-top: 50px;
-            padding: 40px 0;
+            background:#212529;
+            color:white;
+            margin-top:60px;
+            padding:40px 0;
         }
 
         .footer-text{
-            color: #dcdcdc;
+            color:#d6d6d6;
         }
+
+        .welcome-card{
+            background:linear-gradient(90deg,#0d6efd,#0b5ed7);
+            color:white;
+            border-radius:12px;
+        }
+
+        .welcome-card h2{
+            font-weight:bold;
+        }
+
+        .welcome-card p{
+            font-size:18px;
+        }
+
+        .navbar{
+            padding:15px 0;
+        }
+
+        .dropdown-toggle{
+            border-radius:30px;
+            font-weight:600;
+            padding:8px 18px;
+        }
+
+        .dropdown-menu{
+            border:none;
+            border-radius:12px;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+        }
+
     </style>
+
 </head>
 
 <body>
 
 <!-- NAVBAR -->
+
 <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+
     <div class="container">
 
-        <a class="navbar-brand" href="/">
-            <img src="{{ asset('images/ITB-SS.jpg') }}" width="75">
+        <a class="navbar-brand"
+           href="{{ route('dashboard') }}">
+
+            <img src="{{ asset('images/ITB-SS.jpg') }}"
+                 width="70">
+
         </a>
 
-        <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
 
             <span class="navbar-toggler-icon"></span>
+
         </button>
 
         <div class="collapse navbar-collapse"
-            id="navbarSupportedContent">
+             id="navbarNav">
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- MENU KIRI -->
+
+            <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="/">Home</a>
-                </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link active"
+                       href="{{ route('dashboard') }}">
 
-                        Menu
+                        Home
+
                     </a>
 
-                    <ul class="dropdown-menu">
+                </li>
 
-                        <li>
-                            <a class="dropdown-item"
-                            href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">
-                                Mahasiswa
+                @auth
+
+                    @if(auth()->user()->role != 'guest')
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown">
+
+                                Menu
+
                             </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+
+                                    <a class="dropdown-item"
+                                       href="{{ action([App\Http\Controllers\MahasiswaController::class,'index']) }}">
+
+                                        Mahasiswa
+
+                                    </a>
+
+                                </li>
+
+                                <li>
+
+                                    <a class="dropdown-item"
+                                       href="{{ action([App\Http\Controllers\DosenController::class,'index']) }}">
+
+                                        Dosen
+
+                                    </a>
+
+                                </li>
+
+                                <li>
+
+                                    <a class="dropdown-item"
+                                       href="{{ action([App\Http\Controllers\JurusanController::class,'index']) }}">
+
+                                        Jurusan
+
+                                    </a>
+
+                                </li>
+
+                                <li>
+
+                                    <a class="dropdown-item"
+                                       href="{{ action([App\Http\Controllers\MatakuliahController::class,'index']) }}">
+
+                                        Mata Kuliah
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
                         </li>
 
-                        <li>
-                            <a class="dropdown-item"
-                            href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">
-                                Dosen
-                            </a>
-                        </li>
+                    @endif
 
-                        <li>
-                            <a class="dropdown-item"
-                            href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">
-                                Jurusan
-                            </a>
-                        </li>
+                    @if(auth()->user()->role == 'mahasiswa')
 
-                        <li>
-                            <a class="dropdown-item"
-                            href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">
-                                Mata Kuliah
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item"
-                            href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               href="{{ action([App\Http\Controllers\KelasController::class,'index']) }}">
+
                                 Kelas
+
                             </a>
+
+                        </li>
+
+                    @endif
+
+                @endauth
+
+            </ul>
+
+            <!-- MENU KANAN -->
+
+            @auth
+
+                <div class="dropdown">
+
+                    <button class="btn btn-outline-primary dropdown-toggle"
+                            type="button"
+                            data-bs-toggle="dropdown">
+
+                        {{ auth()->user()->name }}
+
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <a class="dropdown-item"
+                               href="{{ route('dashboard') }}">
+
+                                Dashboard
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <hr class="dropdown-divider">
+
+                        </li>
+
+                        <li>
+
+                            <form action="{{ route('logout') }}"
+                                  method="POST">
+
+                                @csrf
+
+                                <button type="submit"
+                                        class="dropdown-item text-danger">
+
+                                    Logout
+
+                                </button>
+
+                            </form>
+
                         </li>
 
                     </ul>
-                </li>
-            </ul>
 
-            <form class="d-flex">
-                <input class="form-control me-2"
-                    type="search"
-                    placeholder="Search">
+                </div>
 
-                <button class="btn btn-success"
-                    type="submit">
-                    Search
-                </button>
-            </form>
+            @else
+
+                <a href="{{ route('login') }}"
+                   class="btn btn-primary me-2">
+
+                    Login
+
+                </a>
+
+                <a href="{{ route('register.view') }}"
+                   class="btn btn-success">
+
+                    Register
+
+                </a>
+
+            @endauth
 
         </div>
+
     </div>
+
 </nav>
 
 <!-- CONTENT -->
+
 <div class="container mt-4">
 
-    <div class="row g-4">
+    <div class="card welcome-card shadow border-0 mb-4">
 
-        <div class="col-md-12">
-            <img src="{{ asset('images/Website-PMB-26-27.jpg') }}"
-                class="kampus-img">
-        </div>
+        <div class="card-body text-center py-4">
 
-        <div class="col-md-12">
-            <img src="{{ asset('images/Gedung-ITBSS-scaled.jpg') }}"
-                class="kampus-img">
+            @auth
+
+                <h2>Selamat Datang, {{ auth()->user()->name }}</h2>
+
+                <p class="mb-0">
+
+                    Login sebagai
+                    {{ ucfirst(auth()->user()->role) }}
+
+                </p>
+
+            @else
+
+                <h2>Selamat Datang di Website Kampus ITBSS</h2>
+
+                <p class="mb-0">
+
+                    Website resmi Institut Teknologi & Bisnis Sabda Setia.
+                    Silakan login untuk mengakses Sistem Informasi Akademik.
+
+                </p>
+
+            @endauth
+
         </div>
 
     </div>
 
-    <!-- CARD -->
+    <div class="row">
+
+        <div class="col-md-12 mb-4">
+
+            <img src="{{ asset('images/Website-PMB-Jojo.png') }}"
+                 class="kampus-img">
+
+        </div>
+
+        <div class="col-md-12">
+
+            <img src="{{ asset('images/Gedung-ITBSS-scaled.jpg') }}"
+                 class="kampus-img">
+
+        </div>
+
+    </div>
+
     <div class="card shadow border-0 mt-5">
-        <div class="card-body p-4">
+
+        <div class="card-body">
 
             <h3>Campus Location</h3>
 
-            <p class="mt-3">
-               <a href="https://www.google.com/maps/place/Institut+Teknologi+%26+Bisnis+Sabda+Setia/@-0.0652418,109.3197479,1086m/data=!3m2!1e3!4b1!4m6!3m5!1s0x2e1d5990c1ed4e5f:0x895c21a5be3c6939!8m2!3d-0.0652418!4d109.3197479!16s%2Fg%2F11nx0k3l04?entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"target="_blank"class="text-decoration-none">
-                Jl. Purnama 2, Kecamatan Pontianak Selatan,
-                Kota Pontianak, Kalimantan Barat 78121
+            <p>
+
+                <a href="https://www.google.com/maps/place/Institut+Teknologi+%26+Bisnis+Sabda+Setia/"
+                   target="_blank"
+                   class="text-decoration-none">
+
+                    Jl. Purnama II,
+                    Pontianak Selatan,
+                    Kota Pontianak,
+                    Kalimantan Barat
+
+                </a>
+
             </p>
 
         </div>
+
     </div>
 
 </div>
 
-<!-- FOOTER -->
 <footer>
 
     <div class="container text-center">
 
-        <img src="https://itbss.ac.id/wp-content/uploads/2021/12/Logo-White.png"
-            width="250"
-            class="mb-3">
+        <img src="{{ asset('images/Logo-ITBSS.png') }}"
+             width="220">
 
-        <p class="footer-text">
-            Copyright © 2021 Yayasan Gereja Protestan Kampung Bali.
-            All Rights Reserved.
+        <p class="footer-text mt-3">
+
+            Copyright © 2026
+            Institut Teknologi & Bisnis Sabda Setia
+
         </p>
 
     </div>
