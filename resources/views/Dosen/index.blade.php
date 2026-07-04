@@ -1,230 +1,264 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dosen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Dosen</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #f5f5f5;
+        body{
+            background:#f4f7fc;
         }
 
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .navbar{
+            box-shadow:0 5px 15px rgba(0,0,0,.1);
+        }
+
+        .page-title{
+            font-weight:bold;
+            color:#0d6efd;
+        }
+
+        .card{
+            border:none;
+            border-radius:18px;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+        }
+
+        .table thead{
+            background:#0d6efd;
+            color:white;
+        }
+
+        .table th,
+        .table td{
+            vertical-align:middle;
+        }
+
+        .btn-action{
+            width:80px;
+        }
+
+        .logo{
+            border-radius:50%;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- JUDUL -->
-    <h1 class="text-center mt-4 mb-4">
-        Table Dosen
-    </h1>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white">
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container">
 
-        <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ url('/') }}">
+            <img src="{{ asset('images/ITB-SS.jpg') }}"
+                 width="45"
+                 class="logo me-2">
 
-            <!-- LOGO -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images/ITB-SS.jpg') }}"
-                    alt="Logo"
-                    width="50">
-            </a>
+            Sistem Akademik
+        </a>
 
-            <!-- TOGGLER -->
-            <button class="navbar-toggler"
+        <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+                data-bs-target="#navbarNav">
 
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <span class="navbar-toggler-icon"></span>
 
-            <!-- MENU -->
-            <div class="collapse navbar-collapse"
-                id="navbarSupportedContent">
+        </button>
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
 
-                    <!-- HOME -->
-                    <li class="nav-item">
-                        <a class="nav-link active"
-                            href="{{ url('/') }}">
-                            Home
-                        </a>
-                    </li>
+            <ul class="navbar-nav me-auto">
 
-                    <!-- DROPDOWN -->
-                    <li class="nav-item dropdown">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url('/') }}">
+                        Home
+                    </a>
+                </li>
 
-                        <a class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                <li class="nav-item dropdown">
 
-                            Menu
-                        </a>
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       data-bs-toggle="dropdown">
 
-                        <ul class="dropdown-menu">
+                        Master Data
+                    </a>
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">
-                                    Mahasiswa
-                                </a>
-                            </li>
+                    <ul class="dropdown-menu">
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">
-                                    Dosen
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\MahasiswaController::class,'index']) }}">
+                                Mahasiswa
+                            </a>
+                        </li>
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">
-                                    Jurusan
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\DosenController::class,'index']) }}">
+                                Dosen
+                            </a>
+                        </li>
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">
-                                    Mata Kuliah
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">
-                                    Kelas
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\JurusanController::class,'index']) }}">
+                                Jurusan
+                            </a>
+                        </li>
 
-                        </ul>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\MatakuliahController::class,'index']) }}">
+                                Mata Kuliah
+                            </a>
+                        </li>
 
-                    </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\KelasController::class,'index']) }}">
+                                Kelas
+                            </a>
+                        </li>
 
-                </ul>
+                    </ul>
 
-                <!-- SEARCH -->
-                <form class="d-flex" role="search">
+                </li>
 
-                    <input class="form-control me-2"
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search">
+            </ul>
 
-                    <button class="btn btn-outline-success"
-                        type="submit">
+            <form class="d-flex">
+                <input class="form-control me-2"
+                       type="search"
+                       placeholder="Cari...">
 
-                        Search
-
-                    </button>
-
-                </form>
-
-            </div>
+                <button class="btn btn-outline-primary">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
 
         </div>
 
-    </nav>
+    </div>
 
-    <!-- CONTENT -->
-    <div class="container mt-4">
+</nav>
 
-        <div class="table-container">
+<div class="container py-5">
 
-            <!-- BUTTON CREATE -->
-            <a href="{{ action([App\Http\Controllers\DosenController::class, 'create']) }}">
-                <input type="button"
-                    class="btn btn-primary btn-lg"
-                    value="Create">
-            </a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <br><br>
+        <h2 class="page-title">
+            <i class="bi bi-person-badge-fill"></i>
+            Data Dosen
+        </h2>
 
-            <!-- TABLE -->
-            <div class="table-responsive"> <table class="table table-white table-hover">
+        <a href="{{ action([App\Http\Controllers\DosenController::class,'create']) }}"
+           class="btn btn-success">
 
-                <thead>
+            <i class="bi bi-plus-circle"></i>
+            Tambah Dosen
+
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover table-bordered align-middle">
+
+                    <thead class="text-center">
 
                     <tr>
                         <th>No</th>
                         <th>Nama Lengkap</th>
                         <th>NIP</th>
                         <th>NIDN</th>
-                        <th>Pendidikan Terakhir</th>
-                        <th>Jurusan ID</th>
-                        <th>Tempat/Tanggal Lahir</th>
+                        <th>Pendidikan</th>
+                        <th>Jurusan</th>
+                        <th>Tempat / Tanggal Lahir</th>
                         <th>Alamat</th>
-                        <th>Tanggal Pembuatan</th>
-                        <th>Aksi</th>
+                        <th>Dibuat</th>
+                        <th width="170">Aksi</th>
                     </tr>
 
-                </thead>
+                    </thead>
 
-                <tbody>
+                    <tbody>
 
-                    @foreach ($dosen as $d)
+                    @foreach($dosen as $d)
 
                     <tr>
 
-                        <td>{{ $d->id }}</td>
+                        <td class="text-center">{{ $d->id }}</td>
+
                         <td>{{ $d->fullname }}</td>
+
                         <td>{{ $d->NIP }}</td>
+
                         <td>{{ $d->NIDN }}</td>
+
                         <td>{{ $d->pendidikan_terakhir }}</td>
-                        <td>{{ $d->jurusan_id }}</td>
+
+                        <td class="text-center">{{ $d->jurusan_id }}</td>
+
                         <td>
-                            {{ $d->tempat_lahir }},
-                            {{ $d->tanggal_lahir }}
+                            {{ $d->tempat_lahir }}<br>
+                            <small class="text-muted">
+                                {{ $d->tanggal_lahir }}
+                            </small>
                         </td>
+
                         <td>{{ $d->alamat }}</td>
+
                         <td>{{ $d->created_at }}</td>
 
                         <td>
 
-                            <!-- EDIT -->
-                            <a href="{{ action([App\Http\Controllers\DosenController::class, 'edit'], [$d->id]) }}">
+                            <div class="d-flex gap-2">
 
-                                <input type="button"
-                                    class="btn btn-primary mb-2"
-                                    value="Edit">
+                                <a href="{{ action([App\Http\Controllers\DosenController::class,'edit'],[$d->id]) }}"
+                                   class="btn btn-warning btn-sm btn-action">
 
-                            </a>
+                                    <i class="bi bi-pencil-square"></i>
 
-                            <!-- DELETE -->
-                            <form action="{{ action([App\Http\Controllers\DosenController::class, 'destroy'], [$d->id]) }}"
-                                method="post">
+                                    Edit
 
-                                @csrf
+                                </a>
 
-                                <input type="hidden"
-                                    name="_method"
-                                    value="DELETE">
+                                <form action="{{ action([App\Http\Controllers\DosenController::class,'destroy'],[$d->id]) }}"
+                                      method="POST">
 
-                                <input type="submit"
-                                    class="btn btn-secondary"
-                                    value="Delete">
+                                    @csrf
+                                    @method('DELETE')
 
-                            </form>
+                                    <button class="btn btn-danger btn-sm btn-action"
+                                            onclick="return confirm('Yakin ingin menghapus data ini?')">
+
+                                        <i class="bi bi-trash"></i>
+
+                                        Hapus
+
+                                    </button>
+
+                                </form>
+
+                            </div>
 
                         </td>
 
@@ -232,17 +266,19 @@
 
                     @endforeach
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>

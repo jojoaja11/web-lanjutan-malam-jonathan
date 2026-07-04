@@ -1,235 +1,300 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kelas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Kelas</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #f5f5f5;
+        body{
+            background:#f4f7fc;
         }
 
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .navbar{
+            box-shadow:0 5px 15px rgba(0,0,0,.1);
+        }
+
+        .logo{
+            border-radius:50%;
+        }
+
+        .page-title{
+            color:#0d6efd;
+            font-weight:bold;
+        }
+
+        .card{
+            border:none;
+            border-radius:18px;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+        }
+
+        .table thead{
+            background:#0d6efd;
+            color:#fff;
+        }
+
+        .table th,
+        .table td{
+            vertical-align:middle;
+        }
+
+        .badge-jam{
+            background:#198754;
+            color:#fff;
+            padding:6px 12px;
+            border-radius:20px;
+        }
+
+        .badge-hari{
+            background:#0dcaf0;
+            color:#fff;
+            padding:6px 12px;
+            border-radius:20px;
+        }
+
+        .btn-action{
+            width:90px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- JUDUL -->
-    <h1 class="text-center mt-4 mb-4">
-        Tabel Kelas
-    </h1>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white">
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container">
 
-        <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ url('/') }}">
+            <img src="{{ asset('images/ITB-SS.jpg') }}"
+                 width="45"
+                 class="logo me-2">
 
-            <!-- LOGO -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images/ITB-SS.jpg') }}"
-                    alt="Logo"
-                    width="50">
-            </a>
+            Sistem Akademik
+        </a>
 
-            <!-- TOGGLER -->
-            <button class="navbar-toggler"
-                type="button"
+        <button class="navbar-toggler"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+                data-bs-target="#navbarNav">
 
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <span class="navbar-toggler-icon"></span>
 
-            <!-- MENU -->
-            <div class="collapse navbar-collapse"
-                id="navbarSupportedContent">
+        </button>
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
 
-                    <!-- HOME -->
-                    <li class="nav-item">
-                        <a class="nav-link active"
-                            href="{{ url('/') }}">
-                            Home
-                        </a>
-                    </li>
+            <ul class="navbar-nav me-auto">
 
-                    <!-- DROPDOWN -->
-                    <li class="nav-item dropdown">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url('/') }}">
+                        Home
+                    </a>
+                </li>
 
-                        <a class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                <li class="nav-item dropdown">
 
-                            Menu
-                        </a>
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       data-bs-toggle="dropdown">
 
-                        <ul class="dropdown-menu">
+                        Master Data
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">
-                                    Mahasiswa
-                                </a>
-                            </li>
+                    </a>
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">
-                                    Dosen
-                                </a>
-                            </li>
+                    <ul class="dropdown-menu">
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">
-                                    Jurusan
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\MahasiswaController::class,'index']) }}">
+                                Mahasiswa
+                            </a>
+                        </li>
 
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">
-                                    Mata Kuliah
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">
-                                    Kelas
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\DosenController::class,'index']) }}">
+                                Dosen
+                            </a>
+                        </li>
 
-                        </ul>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\JurusanController::class,'index']) }}">
+                                Jurusan
+                            </a>
+                        </li>
 
-                    </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\MatakuliahController::class,'index']) }}">
+                                Mata Kuliah
+                            </a>
+                        </li>
 
-                </ul>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\KelasController::class,'index']) }}">
+                                Kelas
+                            </a>
+                        </li>
 
-                <!-- SEARCH -->
-                <form class="d-flex" role="search">
+                    </ul>
 
-                    <input class="form-control me-2"
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search">
+                </li>
 
-                    <button class="btn btn-outline-success"
-                        type="submit">
+            </ul>
 
-                        Search
+            <form class="d-flex">
 
-                    </button>
+                <input class="form-control me-2"
+                       type="search"
+                       placeholder="Cari kelas...">
 
-                </form>
+                <button class="btn btn-outline-primary">
+                    <i class="bi bi-search"></i>
+                </button>
 
-            </div>
+            </form>
 
         </div>
 
-    </nav>
+    </div>
 
-    <!-- CONTENT -->
-    <div class="container mt-4">
+</nav>
 
-        <div class="table-container">
+<div class="container py-5">
 
-            <!-- BUTTON CREATE -->
-            <a href="{{ action([App\Http\Controllers\KelasController::class, 'create']) }}">
-                <input type="button"
-                    class="btn btn-primary btn-lg"
-                    value="Create">
-            </a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <br><br>
+        <h2 class="page-title">
+            <i class="bi bi-door-open-fill"></i>
+            Data Kelas
+        </h2>
 
-            <!-- TABLE -->
-            <div class="table-responsive"> <table class="table table-white table-hover">
+        <a href="{{ action([App\Http\Controllers\KelasController::class,'create']) }}"
+           class="btn btn-success">
 
-                <thead>
-            <tr>
-                <th>id</th>
-                <th>Kode Kelas</th>
-                <th>Nama Dosen</th>
-                <th>Nama Mata Kuliah</th>
-                <th>Ruang Kelas</th>
-                <th>Hari</th>
-                <th>Jam</th>
-                <th>Tahun Ajaran</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
+            <i class="bi bi-plus-circle"></i>
+            Tambah Kelas
 
-        <tbody>
+        </a>
 
-            @foreach($kelas as $c)
+    </div>
 
-            <tr>
-                <td>{{ $c->id }}</td>
+    <div class="card">
 
-                <td>{{ $c->kode_kelas }}</td>
+        <div class="card-body">
 
-                <td>{{ $c->dosen->Fullname }}</td>
+            <div class="table-responsive">
 
-                <td>{{ $c->mata_kuliah->Nama_Mata_Kuliah}}</td>
+                <table class="table table-hover table-bordered align-middle">
 
-                <td>{{ $c->ruang_kelas }}</td>
+                    <thead class="text-center">
 
-                <td>{{ ucfirst($c->hari) }}</td>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kode Kelas</th>
+                        <th>Dosen</th>
+                        <th>Mata Kuliah</th>
+                        <th>Ruang</th>
+                        <th>Hari</th>
+                        <th>Jam</th>
+                        <th>Tahun Ajaran</th>
+                        <th width="130">Aksi</th>
+                    </tr>
 
-                <td>{{ $c->jam }}</td>
+                    </thead>
 
-                <td>{{ $c->tahun_ajaran }}</td>
+                    <tbody>
 
-                <td>
+                    @foreach($kelas as $c)
 
-                    <form action="{{ route('kelas.destroy', $c->id) }}"
-                          method="POST">
+                    <tr>
 
-                        @csrf
-                        @method('DELETE')
+                        <td class="text-center">
+                            {{ $c->id }}
+                        </td>
 
-                        <button type="submit"
-                                class="btn btn-danger btn-sm">
+                        <td>
+                            <strong>{{ $c->kode_kelas }}</strong>
+                        </td>
 
-                            Hapus Kelas
-                        </button>
+                        <td>
+                            <i class="bi bi-person-fill text-primary"></i>
+                            {{ $c->dosen->Fullname }}
+                        </td>
 
-                    </form>
+                        <td>
+                            {{ $c->mata_kuliah->Nama_Mata_Kuliah }}
+                        </td>
+
+                        <td class="text-center">
+                            {{ $c->ruang_kelas }}
+                        </td>
+
+                        <td class="text-center">
+                            <span class="badge-hari">
+                                {{ ucfirst($c->hari) }}
+                            </span>
+                        </td>
+
+                        <td class="text-center">
+                            <span class="badge-jam">
+                                {{ $c->jam }}
+                            </span>
+                        </td>
+
+                        <td class="text-center">
+                            {{ $c->tahun_ajaran }}
+                        </td>
+
+                        <td>
+
+                            <form action="{{ route('kelas.destroy', $c->id) }}"
+                                  method="POST">
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm btn-action"
+                                        onclick="return confirm('Yakin ingin menghapus kelas ini?')">
+
+                                    <i class="bi bi-trash"></i>
+                                    Hapus
+
+                                </button>
+
+                            </form>
+
                         </td>
 
                     </tr>
 
                     @endforeach
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>

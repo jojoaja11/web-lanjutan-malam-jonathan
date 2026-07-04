@@ -1,239 +1,255 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Jurusan</title>
 
-    <title>Jurusan</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body{
-            background-color: #f5f5f5;
+            background:#f4f7fc;
         }
 
-        .table-container{
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .navbar{
+            box-shadow:0 5px 15px rgba(0,0,0,.1);
+        }
+
+        .page-title{
+            color:#0d6efd;
+            font-weight:bold;
+        }
+
+        .card{
+            border:none;
+            border-radius:18px;
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+        }
+
+        .table thead{
+            background:#0d6efd;
+            color:#fff;
+        }
+
+        .table th,
+        .table td{
+            vertical-align:middle;
+        }
+
+        .btn-action{
+            width:80px;
+        }
+
+        .logo{
+            border-radius:50%;
         }
     </style>
-
 </head>
 
 <body>
 
-    <!-- JUDUL -->
-    <h1 class="text-center mt-4">
-        Table Jurusan
-    </h1>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white">
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container">
 
-        <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ url('/') }}">
+            <img src="{{ asset('images/ITB-SS.jpg') }}"
+                 width="45"
+                 class="logo me-2">
 
-            <!-- LOGO -->
-            <a class="navbar-brand"
-                href="{{ url('/') }}">
+            Sistem Akademik
+        </a>
 
-                <img src="{{ asset('images/ITB-SS.jpg') }}"
-                    alt="gambar"
-                    width="50">
-
-            </a>
-
-            <!-- TOGGLER -->
-            <button class="navbar-toggler"
+        <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+                data-bs-target="#navbarNav">
 
-                <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
 
-            </button>
+        </button>
 
-            <!-- MENU -->
-            <div class="collapse navbar-collapse"
-                id="navbarSupportedContent">
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto">
 
-                    <!-- HOME -->
-                    <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{{ url('/') }}">
+                        Home
+                    </a>
+                </li>
 
-                        <a class="nav-link active"
-                            href="{{ url('/') }}">
+                <li class="nav-item dropdown">
 
-                            Home
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       data-bs-toggle="dropdown">
 
-                        </a>
+                        Master Data
 
-                    </li>
+                    </a>
 
-                    <!-- DROPDOWN -->
-                    <li class="nav-item dropdown">
+                    <ul class="dropdown-menu">
 
-                        <a class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-
-                            Menu
-
-                        </a>
-
-                        <ul class="dropdown-menu">
-
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\MahasiswaController::class, 'index']) }}">
-
-                                    Mahasiswa
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\DosenController::class, 'index']) }}">
-
-                                    Dosen
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\JurusanController::class, 'index']) }}">
-
-                                    Jurusan
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\MatakuliahController::class, 'index']) }}">
-
-                                    Mata Kuliah
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ action([App\Http\Controllers\KelasController::class, 'index']) }}">
-                                    Kelas
-                                </a>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\MahasiswaController::class,'index']) }}">
+                                Mahasiswa
+                            </a>
                         </li>
 
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\DosenController::class,'index']) }}">
+                                Dosen
+                            </a>
+                        </li>
 
-                        </ul>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\JurusanController::class,'index']) }}">
+                                Jurusan
+                            </a>
+                        </li>
 
-                    </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\MatakuliahController::class,'index']) }}">
+                                Mata Kuliah
+                            </a>
+                        </li>
 
-                </ul>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{{ action([App\Http\Controllers\KelasController::class,'index']) }}">
+                                Kelas
+                            </a>
+                        </li>
 
-                <!-- SEARCH -->
-                <form class="d-flex"
-                    role="search">
+                    </ul>
 
-                    <input class="form-control me-2"
-                        type="search"
-                        placeholder="Search">
+                </li>
 
-                    <button class="btn btn-outline-success"
-                        type="submit">
+            </ul>
 
-                        Search
+            <form class="d-flex">
 
-                    </button>
+                <input class="form-control me-2"
+                       type="search"
+                       placeholder="Cari...">
 
-                </form>
+                <button class="btn btn-outline-primary">
+                    <i class="bi bi-search"></i>
+                </button>
 
-            </div>
+            </form>
 
         </div>
 
-    </nav>
+    </div>
 
-    <!-- CONTENT -->
-    <div class="container mt-4">
+</nav>
 
-        <div class="table-container">
+<div class="container py-5">
 
-            <!-- BUTTON CREATE -->
-            <a href="{{ action([App\Http\Controllers\JurusanController::class, 'create']) }}">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-                <input type="button"
-                    class="btn btn-primary btn-lg"
-                    value="Create">
+        <h2 class="page-title">
+            <i class="bi bi-building"></i>
+            Data Jurusan
+        </h2>
 
-            </a>
+        <a href="{{ action([App\Http\Controllers\JurusanController::class,'create']) }}"
+           class="btn btn-success">
 
-            <br><br>
+            <i class="bi bi-plus-circle"></i>
+            Tambah Jurusan
 
-            <!-- TABLE -->
-            <div class="table-responsive"> <table class="table table-white table-hover">
+        </a>
 
-                <thead>
+    </div>
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover table-bordered align-middle">
+
+                    <thead class="text-center">
 
                     <tr>
-                        <th>No</th>
+                        <th width="70">No</th>
                         <th>Nama Jurusan</th>
                         <th>Kode Jurusan</th>
-                        <th>Tanggal Pembuatan</th>
-                        <th>Aksi</th>
+                        <th>Tanggal Dibuat</th>
+                        <th width="180">Aksi</th>
                     </tr>
 
-                </thead>
+                    </thead>
 
-                <tbody>
+                    <tbody>
 
-                    @foreach ($jurusan as $j)
+                    @foreach($jurusan as $j)
 
                     <tr>
 
-                        <td>{{ $j->id }}</td>
-                        <td>{{ $j->nama_jurusan }}</td>
-                        <td>{{ $j->kode_jurusan }}</td>
-                        <td>{{ $j->created_at }}</td>
+                        <td class="text-center">
+                            {{ $j->id }}
+                        </td>
+
+                        <td>
+                            {{ $j->nama_jurusan }}
+                        </td>
+
+                        <td class="text-center">
+                            <span class="badge bg-primary">
+                                {{ $j->kode_jurusan }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ $j->created_at }}
+                        </td>
 
                         <td>
 
-                            <!-- EDIT -->
-                            <a href="{{ action([App\Http\Controllers\JurusanController::class, 'edit'], [$j->id]) }}">
+                            <div class="d-flex gap-2">
 
-                                <input type="button"
-                                    class="btn btn-primary mb-2"
-                                    value="Edit">
+                                <a href="{{ action([App\Http\Controllers\JurusanController::class,'edit'],[$j->id]) }}"
+                                   class="btn btn-warning btn-sm btn-action">
 
-                            </a>
+                                    <i class="bi bi-pencil-square"></i>
+                                    Edit
 
-                            <!-- DELETE -->
-                            <form action="{{ action([App\Http\Controllers\JurusanController::class, 'destroy'], [$j->id]) }}"
-                                method="post">
+                                </a>
 
-                                @csrf
+                                <form action="{{ action([App\Http\Controllers\JurusanController::class,'destroy'],[$j->id]) }}"
+                                      method="POST">
 
-                                <input type="hidden"
-                                    name="_method"
-                                    value="DELETE">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <input type="submit"
-                                    class="btn btn-secondary"
-                                    value="Delete">
+                                    <button class="btn btn-danger btn-sm btn-action"
+                                            onclick="return confirm('Yakin ingin menghapus data ini?')">
 
-                            </form>
+                                        <i class="bi bi-trash"></i>
+                                        Hapus
+
+                                    </button>
+
+                                </form>
+
+                            </div>
 
                         </td>
 
@@ -241,17 +257,19 @@
 
                     @endforeach
 
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>
