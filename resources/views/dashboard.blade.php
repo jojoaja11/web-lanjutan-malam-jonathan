@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 
 <head>
 
@@ -13,7 +13,9 @@
     <style>
 
         body{
-            background:#f5f5f5;
+            background: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            transition: .3s;
         }
 
         .kampus-img{
@@ -66,15 +68,20 @@
             box-shadow:0 5px 15px rgba(0,0,0,.15);
         }
 
+        #themeToggle{
+            width:45px;
+            height:45px;
+            border-radius:50%;
+            font-size:20px;
+        }
+
     </style>
 
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-
-<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg bg-body shadow-sm">
 
     <div class="container">
 
@@ -131,57 +138,38 @@
                             <ul class="dropdown-menu">
 
                                 <li>
-
                                     <a class="dropdown-item"
                                        href="{{ action([App\Http\Controllers\MahasiswaController::class,'index']) }}">
-
                                         Mahasiswa
-
                                     </a>
-
                                 </li>
 
                                 <li>
-
                                     <a class="dropdown-item"
                                        href="{{ action([App\Http\Controllers\DosenController::class,'index']) }}">
-
                                         Dosen
-
                                     </a>
-
                                 </li>
 
                                 <li>
-
                                     <a class="dropdown-item"
                                        href="{{ action([App\Http\Controllers\JurusanController::class,'index']) }}">
-
                                         Jurusan
-
                                     </a>
-
                                 </li>
 
                                 <li>
-
                                     <a class="dropdown-item"
                                        href="{{ action([App\Http\Controllers\MatakuliahController::class,'index']) }}">
-
                                         Mata Kuliah
-
                                     </a>
-
                                 </li>
-                                <li>
 
+                                <li>
                                     <a class="dropdown-item"
                                        href="{{ action([App\Http\Controllers\KelasController::class,'index']) }}">
-
                                         Kelas
-
                                     </a>
-
                                 </li>
 
                             </ul>
@@ -196,9 +184,7 @@
 
                             <a class="nav-link"
                                href="{{ action([App\Http\Controllers\KelasController::class,'index']) }}">
-
                                 Kelas
-
                             </a>
 
                         </li>
@@ -210,6 +196,12 @@
             </ul>
 
             <!-- MENU KANAN -->
+
+            <button class="btn btn-outline-secondary me-3"
+                    id="themeToggle"
+                    title="Dark / Light Mode">
+                🌙
+            </button>
 
             @auth
 
@@ -236,11 +228,7 @@
 
                         </li>
 
-                        <li>
-
-                            <hr class="dropdown-divider">
-
-                        </li>
+                        <li><hr class="dropdown-divider"></li>
 
                         <li>
 
@@ -290,6 +278,8 @@
 
 <!-- CONTENT -->
 
+<!-- CONTENT -->
+
 <div class="container mt-4">
 
     <div class="card welcome-card shadow border-0 mb-4">
@@ -301,10 +291,7 @@
                 <h2>Selamat Datang, {{ auth()->user()->name }}</h2>
 
                 <p class="mb-0">
-
-                    Login sebagai
-                    {{ ucfirst(auth()->user()->role) }}
-
+                    Login sebagai {{ ucfirst(auth()->user()->role) }}
                 </p>
 
             @else
@@ -312,10 +299,8 @@
                 <h2>Selamat Datang di Website Kampus ITBSS</h2>
 
                 <p class="mb-0">
-
                     Website resmi Institut Teknologi & Bisnis Sabda Setia.
                     Silakan login untuk mengakses Sistem Informasi Akademik.
-
                 </p>
 
             @endauth
@@ -369,14 +354,14 @@
 
 </div>
 
-<footer>
+<footer class="bg-body-tertiary border-top">
 
-    <div class="container text-center">
+    <div class="container text-center py-4">
 
         <img src="{{ asset('images/Logo-ITBSS.png') }}"
              width="220">
 
-        <p class="footer-text mt-3">
+        <p class="footer-text mt-3 mb-0">
 
             Copyright © 2026
             Institut Teknologi & Bisnis Sabda Setia
@@ -388,6 +373,33 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+const html = document.documentElement;
+const btn = document.getElementById('themeToggle');
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+
+html.setAttribute('data-bs-theme', savedTheme);
+
+btn.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+
+btn.addEventListener('click', function () {
+
+    const current = html.getAttribute('data-bs-theme');
+
+    const next = current === 'dark' ? 'light' : 'dark';
+
+    html.setAttribute('data-bs-theme', next);
+
+    localStorage.setItem('theme', next);
+
+    btn.innerHTML = next === 'dark' ? '☀️' : '🌙';
+
+});
+
+</script>
 
 </body>
 </html>
