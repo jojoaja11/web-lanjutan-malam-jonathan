@@ -13,15 +13,20 @@ return new class extends Migration
     {
         Schema::create('table_krs_detail', function (Blueprint $table) {
             $table->id();
-	        $table->unsignedBigInteger('krs_id');
-            // Define foreign key constraint
-            $table->foreign('krs_id')->references('id')->on('table_krs')->onDelete('cascade');
+            $table->unsignedBigInteger('krs_id');
+            $table->foreign('krs_id')
+            ->references('id')
+            ->on('table_krs')
+            ->onDelete('cascade');
 
-	        $table->unsignedBigInteger('kelas_id');
-            $table->foreign('kelas_id')->references('id')->on('table_kelas')->onDelete('cascade');
+            $table->unsignedBigInteger('kelas_id');
+            $table->foreign('kelas_id')
+            ->references('id')
+            ->on('kelas')
+            ->onDelete('cascade');
 
-	        $table->enum('status', ['pending', 'approved', 'declined']);
-	        $table->timestamps();
+            $table->enum('status', ['pending', 'approved', 'partial', 'declined']);
+            $table->timestamps();
         });
     }
 
