@@ -18,5 +18,11 @@ class Mahasiswa extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'alamat',
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

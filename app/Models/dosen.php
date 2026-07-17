@@ -19,6 +19,12 @@ class Dosen extends Model
         'jurusan_id',
         'tempat_lahir',
         'tanggal_lahir',
-        'alamat'
+        'alamat',
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
