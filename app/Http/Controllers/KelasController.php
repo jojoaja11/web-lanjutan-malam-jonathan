@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Matakuliah;
+use App\Models\Dosen;
 use Illuminate\Http\Request;
 
 class KelasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:admin']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -22,18 +29,9 @@ class KelasController extends Controller
      */
     public function create()
     {
-        // contoh dummy dropdown
-        $mata_kuliah = [
-            1 => 'Bisnis Digital',
-            2 => 'Sistem Teknologi dan Informasi',
-            3 => 'Kewirausahaan'
-        ];
-
-        $dosen = [
-            1 => 'Kevin',
-            2 => 'Jonathan',
-            3 => 'Aprianto'
-        ];
+        // Ambil data nyata dari DB untuk dropdown
+        $mata_kuliah = Matakuliah::pluck('nama_mata_kuliah', 'id');
+        $dosen = Dosen::pluck('name', 'id');
 
         return view('kelas.create', compact('mata_kuliah', 'dosen'));
     }
@@ -43,19 +41,19 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'kode_kelas' => 'required',
-            'kode_mata_kuliah' => 'required',
-            'kode_dosen' => 'required',
-            'hari' => 'required',
-            'jam' => 'required',
-            'tahun_ajaran' => 'required',
-            'ruang_kelas' => 'required',
-            'jumlah_max' => 'required',
-            'semester' => 'required'
+        $validated = $request->validate([
+            'kode_kelas' => 'required|string',
+            'kode_mata_kuliah' => 'required|exists:matakuliah,id',
+            'kode_dosen' => 'required|exists:dosen,id',
+            'hari' => 'required|string',
+            'jam' => 'required|string',
+            'tahun_ajaran' => 'required|string',
+            'ruang_kelas' => 'required|string',
+            'jumlah_max' => 'required|integer',
+            'semester' => 'required|string'
         ]);
 
-        Kelas::create($request->all());
+        Kelas::create($validated);
 
         return redirect('/kelas')
             ->with('success', 'Data kelas berhasil ditambahkan');
@@ -64,10 +62,8 @@ class KelasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Kelas $kelas)
     {
-        $kelas = Kelas::findOrFail($id);
-
         $kelas->delete();
 
         return redirect('/kelas')
