@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 
-class MatakuliahController
+class MatakuliahController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:admin']);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return view('matakuliah.index', [
-            'mata_kuliah' => matakuliah::all()
+            'mata_kuliah' => Matakuliah::all()
         ]);
     }
 
@@ -50,7 +55,7 @@ class MatakuliahController
      */
     public function edit($id)
     {
-        return view('mata_kuliah.edit', [
+        return view('matakuliah.edit', [
             'mata_kuliah' => Matakuliah::find($id)
         ]);
     }
