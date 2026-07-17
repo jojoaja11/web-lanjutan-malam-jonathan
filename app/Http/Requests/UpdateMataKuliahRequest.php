@@ -4,13 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMahasiswaRequest extends FormRequest
-
-->withMiddleware(function ($middleware) {
-    $middleware->alias([
-        'role' => \App\Http\Middleware\RoleMiddleware::class,
-    ]);
-})
+class UpdateMataKuliahRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
