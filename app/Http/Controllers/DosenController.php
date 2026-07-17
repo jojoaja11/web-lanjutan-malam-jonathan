@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Dosen;
 use Illuminate\Http\Request;
 
-class DosenController
+class DosenController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:admin']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -76,4 +81,4 @@ class DosenController
 
         return redirect()->action([DosenController::class, 'index']);
     }
-    }
+}
