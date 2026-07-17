@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,27 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // helper cek role
+    public function isRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return in_array($this->role, $roles, true);
+    }
+
+    // opsional: relasi ke profil dosen/mahasiswa jika ingin mengaitkan
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'user_id'); // butuh kolom user_id di tabel dosen
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'user_id'); // butuh kolom user_id di tabel mahasiswa
     }
 }
